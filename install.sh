@@ -160,9 +160,10 @@ mkdir -p $HOME/.npm-global
 npm set prefix=$HOME/.npm-global
 
 # Configure zsh
-rm -rf $HOME/.zsh
-mkdir -p $HOME/.zsh
-git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions
+if [[ ! -d $HOME/.zsh ]]; then
+    mkdir -p $HOME/.zsh
+    git clone https://github.com/zsh-users/zsh-autosuggestions $HOME/.zsh/zsh-autosuggestions
+fi
 
 chsh -s /usr/bin/zsh
 curl -o $HOME/.zshrc https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/.zshrc
