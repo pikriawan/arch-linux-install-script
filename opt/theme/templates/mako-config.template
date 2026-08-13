@@ -1,9 +1,0 @@
-font=monospace 11
-background-color=#{background}
-text-color=#{foreground}
-border-color=#{outline_variant}
-progress-color=#{outline}
-default-timeout=5000
-
-[urgency=high]
-default-timeout=0
