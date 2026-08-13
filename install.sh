@@ -184,7 +184,7 @@ done
 
 # Copy theme files
 if [[ ! -f themes.tar.gz ]]; then
-    curl -fsSL -o themes.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/heads/main/themes.tar.gz
+    curl -fsSL -o themes.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/themes.tar.gz
 fi
 
 if [[ ! -d themes ]]; then
