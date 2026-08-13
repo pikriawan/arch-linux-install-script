@@ -1,0 +1,49 @@
+#!/usr/bin/env node
+
+import child_process from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
+import { render, restart } from "./lib/utils.js";
+
+const wallpapers = fs.readdirSync(path.resolve(process.env.HOME, ".config/hypr/wallpapers"));
+
+let choice = null;
+
+try {
+    choice = child_process.execSync(
+        `echo -e "${wallpapers.join("\n")}" | rofi -dmenu -i -p texture -theme-str 'entry { placeholder: "Wallpaper"; }'`,
+        { encoding: "utf8" }
+    ).trim();
+} catch {
+    console.log("Canceled");
+    process.exit(1);
+}
+
+const wallpaper = path.resolve(process.env.HOME, ".config/hypr/wallpapers", choice);
+
+if (!fs.existsSync(wallpaper)) {
+    console.log("Wallpaper not found");
+    process.exit(1);
+}
+
+const templates = [
+    {
+        source: path.resolve(import.meta.dirname, "templates/hyprlock.conf.template"),
+        destination: path.resolve(process.env.HOME, ".config/hypr/hyprlock.conf"),
+        transform(source) {
+            return source.replaceAll("{wallpaper}", wallpaper);
+        }
+    },
+    {
+        source: path.resolve(import.meta.dirname, "templates/hyprpaper.conf.template"),
+        destination: path.resolve(process.env.HOME, ".config/hypr/hyprpaper.conf"),
+        transform(source) {
+            return source.replaceAll("{wallpaper}", wallpaper);
+        },
+        command() {
+            restart("hyprpaper");
+        }
+    },
+];
+
+render(null, templates);

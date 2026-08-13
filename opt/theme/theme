@@ -1,0 +1,100 @@
+#!/usr/bin/env node
+
+import child_process from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
+import { render, restart } from "./lib/utils.js";
+
+const themes = fs.readdirSync(path.resolve(process.env.HOME, ".local/share/themes")).map((dir) => {
+    return {
+        path: path.resolve(process.env.HOME, ".local/share/themes", dir),
+        ...JSON.parse(fs.readFileSync(path.resolve(process.env.HOME, ".local/share/themes", dir, "theme.json"), "utf8"))
+    };
+});
+
+let choice = null;
+
+try {
+    choice = child_process.execSync(
+        `echo -e "${themes.map((theme) => theme.name).join("\n")}" | rofi -dmenu -i -p colors -theme-str 'entry { placeholder: "Theme"; }'`,
+        { encoding: "utf8" }
+    ).trim();
+} catch {
+    console.log("Canceled");
+    process.exit(1);
+}
+
+const theme = themes.find((t) => t.name === choice);
+
+if (!theme) {
+    console.log("Theme not found");
+    process.exit(1);
+}
+
+const templates = [
+    {
+        source: (theme) => path.resolve(theme.path, "alacritty-theme.toml"),
+        destination: path.resolve(process.env.HOME, ".config/alacritty/theme.toml")
+    },
+    {
+        source: (theme) => path.resolve(theme.path, "btop-theme.theme"),
+        destination: path.resolve(process.env.HOME, ".config/btop/themes/system.theme")
+    },
+    {
+        source: (theme) => path.resolve(theme.path, "nvim-colorscheme.lua"),
+        destination: path.resolve(process.env.HOME, ".config/nvim/lua/plugins/colorscheme.lua")
+    },
+    {
+        command(theme) {
+            fs.rmSync(path.resolve(process.env.HOME, ".config/hypr/wallpapers"), { recursive: true });
+            fs.cpSync(path.resolve(theme.path, "wallpapers"), path.resolve(process.env.HOME, ".config/hypr/wallpapers"), { recursive: true });
+        }
+    },
+    {
+        source: path.resolve(import.meta.dirname, "templates/hyprland.lua.template"),
+        destination: path.resolve(process.env.HOME, ".config/hypr/hyprland.lua"),
+        command(theme) {
+            child_process.execSync(`gsettings set org.gnome.desktop.interface color-scheme ${theme.variables.gtk_color_scheme}`);
+            child_process.execSync(`gsettings set org.gnome.desktop.interface icon-theme ${theme.variables.gtk_icon_theme}`);
+        }
+    },
+    {
+        source: path.resolve(import.meta.dirname, "templates/hyprlock.conf.template"),
+        destination: path.resolve(process.env.HOME, ".config/hypr/hyprlock.conf"),
+        transform(raw, theme, transform) {
+            const wallpaper = path.resolve(process.env.HOME, ".config/hypr/wallpapers", fs.readdirSync(path.resolve(process.env.HOME, ".config/hypr/wallpapers"))[0]);
+            return transform(raw.replaceAll("{wallpaper}", wallpaper), theme);
+        }
+    },
+    {
+        source: path.resolve(import.meta.dirname, "templates/hyprpaper.conf.template"),
+        destination: path.resolve(process.env.HOME, ".config/hypr/hyprpaper.conf"),
+        transform(raw) {
+            const wallpaper = path.resolve(process.env.HOME, ".config/hypr/wallpapers", fs.readdirSync(path.resolve(process.env.HOME, ".config/hypr/wallpapers"))[0]);
+            return raw.replaceAll("{wallpaper}", wallpaper);
+        },
+        command() {
+            restart("hyprpaper");
+        }
+    },
+    {
+        source: path.resolve(import.meta.dirname, "templates/mako-config.template"),
+        destination: path.resolve(process.env.HOME, ".config/mako/config"),
+        command() {
+            child_process.execSync("makoctl reload");
+        }
+    },
+    {
+        source: path.resolve(import.meta.dirname, "templates/rofi-config.rasi.template"),
+        destination: path.resolve(process.env.HOME, ".config/rofi/config.rasi"),
+    },
+    {
+        source: path.resolve(import.meta.dirname, "templates/waybar-style.css.template"),
+        destination: path.resolve(process.env.HOME, ".config/waybar/style.css"),
+        command() {
+            restart("waybar");
+        }
+    }
+];
+
+render(theme, templates);

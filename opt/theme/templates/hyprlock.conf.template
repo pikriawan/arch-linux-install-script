@@ -1,0 +1,45 @@
+background {
+    monitor =
+    path = {wallpaper}
+    blur_passes = 2
+    blur_size = 4
+}
+
+label {
+    monitor =
+    text = cmd[update:60000] echo "$(date +%A,\ %b\ %d)"
+    color = rgb({foreground})
+    font_size = 12
+    font_family = monospace
+    position = 0, -120
+    valign = top
+}
+
+label {
+    monitor =
+    text = $TIME
+    color = rgb({foreground})
+    font_size = 48
+    font_family = monospace
+    position = 0, -144
+    valign = top
+}
+
+input-field {
+    monitor =
+    size = 240, 40
+    outline_thickness = 2
+    dots_text_format = *
+    outer_color = rgb({outline_variant})
+    inner_color = rgb({background})
+    font_color = rgb({foreground})
+    font_family = monospace
+    fade_on_empty = false
+    placeholder_text = Password for $USER
+    rounding = 0
+    check_color = rgb({yellow})
+    fail_color = rgb({red})
+    fail_text = $FAIL
+    position = 0, 120
+    valign = bottom
+}

@@ -1,0 +1,121 @@
+window#waybar {
+    font-family: "JetBrains Mono", "JetBrainsMono Nerd Font", monospace;
+    color: #{foreground};
+    background-color: #{background};
+}
+
+tooltip label {
+    font-family: "JetBrains Mono", "JetBrainsMono Nerd Font", monospace;
+}
+
+#workspaces {
+    margin-left: 10px;
+}
+
+#workspaces button {
+    color: #{foreground};
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    text-shadow: none;
+    padding: 0 6px;
+}
+
+#workspaces button.active {
+    background-color: #{outline};
+}
+
+#mpris {
+    margin-right: 20px;
+}
+
+#mpris.prev {
+    font-family: "Material Symbols Rounded";
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+#mpris.play-pause {
+    font-family: "Material Symbols Rounded";
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+#mpris.next {
+    font-family: "Material Symbols Rounded";
+    font-size: 20px;
+    margin-right: 0;
+}
+
+#tray {
+    margin-right: 20px;
+}
+
+#custom-night-mode {
+    font-family: "Material Symbols Rounded";
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+#idle_inhibitor {
+    font-family: "Material Symbols Rounded";
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+#idle_inhibitor.activated {
+    color: #{green};
+}
+
+#bluetooth {
+    font-family: "Material Symbols Rounded";
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+#bluetooth.connected {
+    color: #{green};
+}
+
+#network {
+    font-family: "Material Symbols Rounded";
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+#pulseaudio {
+    font-family: "Material Symbols Rounded";
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+#battery {
+    margin-right: 20px;
+}
+
+#battery.icon {
+    font-family: "Material Symbols Rounded";
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+#battery.text {
+    margin-right: 0;
+}
+
+#battery.critical {
+    color: #{red};
+}
+
+#battery.warning {
+    color: #{yellow};
+}
+
+#battery.charging {
+    color: #{green};
+}
+
+#clock {
+    margin-right: 10px;
+}

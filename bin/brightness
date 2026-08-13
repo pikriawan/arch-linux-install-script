@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+min_brightness=10
+
+max_brightness=$(brightnessctl max)
+max_brightness=$(node -e "console.log($max_brightness - $min_brightness)")
+
+step=$(node -e "console.log($max_brightness / 10)")
+
+if [[ "$1" = "increase" ]]; then
+    brightnessctl set $step+
+elif [[ "$1" = "decrease" ]]; then
+    brightnessctl -n$min_brightness set $step-
+fi
+
+brightness=$(brightnessctl get)
+brightness=$(node -e "console.log($brightness - $min_brightness)")
+
+brightness_percent=$(node -e "console.log(Math.round($brightness / $max_brightness * 100))")
+
+notify-send \
+    -a brightness \
+    -h string:x-canonical-private-synchronous:brightness \
+    -h int:value:$brightness_percent \
+    "Brightness: $brightness_percent%"

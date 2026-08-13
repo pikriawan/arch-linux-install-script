@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+choice=$(echo -e "Suspend\nLogout\nReboot\nShutdown" | rofi -dmenu -i -p power_settings_new -theme-str 'entry { placeholder: "Power"; }')
+
+case "$choice" in
+    "Suspend")
+        systemctl suspend
+        ;;
+    "Logout")
+        hyprshutdown
+        ;;
+    "Reboot")
+        hyprshutdown -t "Restarting" --post-cmd "systemctl reboot"
+        ;;
+    "Shutdown")
+        hyprshutdown -t "Shutting down..." --post-cmd "systemctl poweroff"
+        ;;
+esac
