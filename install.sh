@@ -110,7 +110,7 @@ sudo pacman -S --needed --noconfirm --asdeps \
     unzip \
     zip
 
-flatpak install -y flathub org.gnome.Showtime
+flatpak install --noninteractive flathub org.gnome.Showtime
 
 # Install themes
 mkdir -p "$HOME/.tmp"
@@ -165,7 +165,7 @@ if [[ ! -d "$HOME/.zsh" ]]; then
     git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/zsh-autosuggestions"
 fi
 
-chsh -s /usr/bin/zsh
+sudo chsh -s /usr/bin/zsh "$USER"
 curl -fsSL -o "$HOME/.zshrc" https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/.zshrc
 
 # Copy config files
