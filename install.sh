@@ -183,17 +183,29 @@ for i in .config/*; do
 done
 
 # Copy theme files
-if [[ ! -f themes.tar.gz ]]; then
-    curl -fsSL -o themes.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/themes.tar.gz
+if [[ ! -f shell-theme.tar.gz ]]; then
+    curl -fsSL -o shell-theme.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/shell-theme.tar.gz
 fi
 
-if [[ ! -d themes ]]; then
-    tar -xvzf themes.tar.gz
+if [[ ! -d shell-theme ]]; then
+    tar -xvzf shell-theme.tar.gz
+fi
+
+mkdir -p "$HOME/.local/state"
+rm -rf "$HOME/.local/state/shell-theme"
+cp -r shell-theme "$HOME/.local/state/shell-theme"
+
+if [[ ! -f shell-themes.tar.gz ]]; then
+    curl -fsSL -o shell-themes.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/shell-themes.tar.gz
+fi
+
+if [[ ! -d shell-themes ]]; then
+    tar -xvzf shell-themes.tar.gz
 fi
 
 mkdir -p "$HOME/.local/share"
-rm -rf "$HOME/.local/share/themes"
-cp -r themes "$HOME/.local/share/themes"
+rm -rf "$HOME/.local/share/shell-themes"
+cp -r shell-themes "$HOME/.local/share/shell-themes"
 
 # Copy opt files
 if [[ ! -f opt.tar.gz ]]; then
