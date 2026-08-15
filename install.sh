@@ -8,6 +8,7 @@ sudo pacman -Syu --noconfirm
 sudo pacman -S --needed --noconfirm \
     alacritty \
     amberol \
+    apostrophe \
     baobab \
     base-devel \
     bluetui \
@@ -46,7 +47,6 @@ sudo pacman -S --needed --noconfirm \
     hyprshutdown \
     hyprsunset \
     inter-font \
-    iotas \
     jq \
     loupe \
     lua51 \
