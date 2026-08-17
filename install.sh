@@ -66,6 +66,7 @@ sudo pacman -S --needed --noconfirm \
     pipewire \
     pipewire-jack \
     pipewire-pulse \
+    plymouth \
     qt5-wayland \
     qt6-wayland \
     ripgrep \
@@ -111,6 +112,10 @@ sudo pacman -S --needed --noconfirm --asdeps \
     zip
 
 flatpak install --noninteractive flathub org.gnome.Showtime
+
+# Configure plymouth
+sudo sed -i '/^HOOKS=/ { /plymouth/! s/\bsystemd\b/& plymouth/; }' /etc/mkinitcpio.conf
+sudo mkinitcpio -P
 
 # Install themes
 mkdir -p "$HOME/.tmp"
