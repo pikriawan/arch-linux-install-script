@@ -123,7 +123,7 @@ cd "$HOME/.tmp"
 
 if ! pacman -Qi yaru-theme &>/dev/null; then
     if [[ ! -f yaru-theme.tar.gz ]]; then
-        curl -fsSL -o yaru-theme.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/yaru-theme.tar.gz
+        curl -L -o yaru-theme.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/yaru-theme.tar.gz
     fi
 
     if [[ ! -d yaru-theme ]]; then
@@ -137,7 +137,7 @@ fi
 
 if ! pacman -Qi bibata-modern-classic-cursor-theme &>/dev/null; then
     if [[ ! -f bibata-modern-classic-cursor-theme.tar.gz ]]; then
-        curl -fsSL -o bibata-modern-classic-cursor-theme.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/bibata-modern-classic-cursor-theme.tar.gz
+        curl -L -o bibata-modern-classic-cursor-theme.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/bibata-modern-classic-cursor-theme.tar.gz
     fi
 
     if [[ ! -d bibata-modern-classic-cursor-theme ]]; then
@@ -171,11 +171,11 @@ if [[ ! -d "$HOME/.zsh" ]]; then
 fi
 
 sudo chsh -s /usr/bin/zsh "$USER"
-curl -fsSL -o "$HOME/.zshrc" https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/.zshrc
+curl -L -o "$HOME/.zshrc" https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/.zshrc
 
 # Copy config files
 if [[ ! -f .config.tar.gz ]]; then
-    curl -fsSL -o .config.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/.config.tar.gz
+    curl -L -o .config.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/.config.tar.gz
 fi
 
 if [[ ! -d .config ]]; then
@@ -189,7 +189,7 @@ done
 
 # Copy theme files
 if [[ ! -f shell-theme.tar.gz ]]; then
-    curl -fsSL -o shell-theme.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/shell-theme.tar.gz
+    curl -L -o shell-theme.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/shell-theme.tar.gz
 fi
 
 if [[ ! -d shell-theme ]]; then
@@ -201,7 +201,7 @@ rm -rf "$HOME/.local/state/shell-theme"
 cp -r shell-theme "$HOME/.local/state/shell-theme"
 
 if [[ ! -f shell-themes.tar.gz ]]; then
-    curl -fsSL -o shell-themes.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/shell-themes.tar.gz
+    curl -L -o shell-themes.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/shell-themes.tar.gz
 fi
 
 if [[ ! -d shell-themes ]]; then
@@ -214,7 +214,7 @@ cp -r shell-themes "$HOME/.local/share/shell-themes"
 
 # Copy opt files
 if [[ ! -f opt.tar.gz ]]; then
-    curl -fsSL -o opt.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/opt.tar.gz
+    curl -L -o opt.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/opt.tar.gz
 fi
 
 if [[ ! -d opt ]]; then
@@ -226,7 +226,7 @@ cp -r opt "$HOME/.local/opt"
 
 # Copy bin files
 if [[ ! -f bin.tar.gz ]]; then
-    curl -fsSL -o bin.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/bin.tar.gz
+    curl -L -o bin.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/bin.tar.gz
 fi
 
 if [[ ! -d bin ]]; then
