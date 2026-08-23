@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Update and install packages
-sudo pacman -Syu --noconfirm
+#sudo pacman -Syu --noconfirm
 
 sudo pacman -S --needed --noconfirm \
     alacritty \
@@ -83,7 +83,7 @@ sudo pacman -S --needed --noconfirm \
     ttf-cascadia-code \
     ttf-cascadia-code-nerd \
     ttf-fira-code \
-    ttf-fira-code-nerd \
+    ttf-firacode-nerd \
     ttf-jetbrains-mono \
     ttf-jetbrains-mono-nerd \
     ttf-material-symbols-variable \
@@ -117,7 +117,7 @@ sudo pacman -S --needed --noconfirm --asdeps \
     unzip \
     zip
 
-flatpak install --noninteractive flathub org.gnome.Showtime
+#flatpak install --noninteractive flathub org.gnome.Showtime
 
 # Configure plymouth
 sudo sed -i '/^HOOKS=/ { /plymouth/! s/\bsystemd\b/& plymouth/; }' /etc/mkinitcpio.conf
@@ -127,57 +127,57 @@ sudo mkinitcpio -P
 mkdir -p "$HOME/.tmp"
 cd "$HOME/.tmp"
 
-if ! pacman -Qi yaru-theme &>/dev/null; then
-    if [[ ! -f yaru-theme.tar.gz ]]; then
-        curl -L -o yaru-theme.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/yaru-theme.tar.gz
-    fi
-
-    if [[ ! -d yaru-theme ]]; then
-        tar -xvzf yaru-theme.tar.gz
-    fi
-
-    cd yaru-theme
-    makepkg -si --needed --noconfirm
-    cd ..
-fi
-
-if ! pacman -Qi bibata-modern-classic-cursor-theme &>/dev/null; then
-    if [[ ! -f bibata-modern-classic-cursor-theme.tar.gz ]]; then
-        curl -L -o bibata-modern-classic-cursor-theme.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/bibata-modern-classic-cursor-theme.tar.gz
-    fi
-
-    if [[ ! -d bibata-modern-classic-cursor-theme ]]; then
-        tar -xvzf bibata-modern-classic-cursor-theme.tar.gz
-    fi
-
-    cd bibata-modern-classic-cursor-theme
-    makepkg -si --needed --noconfirm
-    cd ..
-fi
-
-# Install yay
-if ! pacman -Qi yay &>/dev/null; then
-    if [[ ! -d yay ]]; then
-        git clone https://aur.archlinux.org/yay.git
-    fi
-
-    cd yay
-    makepkg -si --needed --noconfirm
-    cd ..
-fi
-
-# Configure npm
-mkdir -p "$HOME/.npm-global"
-npm set prefix="$HOME/.npm-global"
-
-# Configure zsh
-if [[ ! -d "$HOME/.zsh" ]]; then
-    mkdir -p "$HOME/.zsh"
-    git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/zsh-autosuggestions"
-fi
-
-sudo chsh -s /usr/bin/zsh "$USER"
-curl -L -o "$HOME/.zshrc" https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/.zshrc
+#if ! pacman -Qi yaru-theme &>/dev/null; then
+#    if [[ ! -f yaru-theme.tar.gz ]]; then
+#        curl -L -o yaru-theme.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/yaru-theme.tar.gz
+#    fi
+#
+#    if [[ ! -d yaru-theme ]]; then
+#        tar -xvzf yaru-theme.tar.gz
+#    fi
+#
+#    cd yaru-theme
+#    makepkg -si --needed --noconfirm
+#    cd ..
+#fi
+#
+#if ! pacman -Qi bibata-modern-classic-cursor-theme &>/dev/null; then
+#    if [[ ! -f bibata-modern-classic-cursor-theme.tar.gz ]]; then
+#        curl -L -o bibata-modern-classic-cursor-theme.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/bibata-modern-classic-cursor-theme.tar.gz
+#    fi
+#
+#    if [[ ! -d bibata-modern-classic-cursor-theme ]]; then
+#        tar -xvzf bibata-modern-classic-cursor-theme.tar.gz
+#    fi
+#
+#    cd bibata-modern-classic-cursor-theme
+#    makepkg -si --needed --noconfirm
+#    cd ..
+#fi
+#
+## Install yay
+#if ! pacman -Qi yay &>/dev/null; then
+#    if [[ ! -d yay ]]; then
+#        git clone https://aur.archlinux.org/yay.git
+#    fi
+#
+#    cd yay
+#    makepkg -si --needed --noconfirm
+#    cd ..
+#fi
+#
+## Configure npm
+#mkdir -p "$HOME/.npm-global"
+#npm set prefix="$HOME/.npm-global"
+#
+## Configure zsh
+#if [[ ! -d "$HOME/.zsh" ]]; then
+#    mkdir -p "$HOME/.zsh"
+#    git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/zsh-autosuggestions"
+#fi
+#
+#sudo chsh -s /usr/bin/zsh "$USER"
+#curl -L -o "$HOME/.zshrc" https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/.zshrc
 
 # Copy config files
 if [[ ! -f .config.tar.gz ]]; then
