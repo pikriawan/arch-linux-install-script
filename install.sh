@@ -78,12 +78,6 @@ sudo pacman -S --needed --noconfirm \
     tmux \
     tree \
     tree-sitter-cli \
-    ttf-bitstream-vera \
-    ttf-bitstream-vera-mono-nerd \
-    ttf-cascadia-code \
-    ttf-cascadia-code-nerd \
-    ttf-fira-code \
-    ttf-firacode-nerd \
     ttf-jetbrains-mono \
     ttf-jetbrains-mono-nerd \
     ttf-material-symbols-variable \
@@ -193,46 +187,6 @@ for i in .config/*; do
     cp -r $i "$HOME/$i"
 done
 
-# Copy theme files
-if [[ ! -f shell-theme.tar.gz ]]; then
-    curl -L -o shell-theme.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/shell-theme.tar.gz
-fi
-
-if [[ ! -d shell-theme ]]; then
-    tar -xvzf shell-theme.tar.gz
-fi
-
-mkdir -p "$HOME/.local/state"
-rm -rf "$HOME/.local/state/shell-theme"
-cp -r shell-theme "$HOME/.local/state/shell-theme"
-
-if [[ ! -f shell-themes.tar.gz ]]; then
-    curl -L -o shell-themes.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/shell-themes.tar.gz
-fi
-
-if [[ ! -d shell-themes ]]; then
-    tar -xvzf shell-themes.tar.gz
-fi
-
-mkdir -p "$HOME/.local/share"
-rm -rf "$HOME/.local/share/shell-themes"
-cp -r shell-themes "$HOME/.local/share/shell-themes"
-
-# Write font configuration file
-echo '{"family":"JetBrains Mono","nerd_family":"JetBrainsMono Nerd Font"}' > "$HOME/.local/state/font.json"
-
-# Copy opt files
-if [[ ! -f opt.tar.gz ]]; then
-    curl -L -o opt.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/opt.tar.gz
-fi
-
-if [[ ! -d opt ]]; then
-    tar -xvzf opt.tar.gz
-fi
-
-rm -rf "$HOME/.local/opt"
-cp -r opt "$HOME/.local/opt"
-
 # Copy bin files
 if [[ ! -f bin.tar.gz ]]; then
     curl -L -o bin.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/bin.tar.gz
@@ -244,9 +198,6 @@ fi
 
 rm -rf "$HOME/.local/bin"
 cp -r bin "$HOME/.local/bin"
-ln -sf "$HOME/.local/opt/theme/font" "$HOME/.local/bin/font"
-ln -sf "$HOME/.local/opt/theme/theme" "$HOME/.local/bin/theme"
-ln -sf "$HOME/.local/opt/theme/wallpaper" "$HOME/.local/bin/wallpaper"
 
 # Configure speech-dispatcher
 spd-conf -ucn
