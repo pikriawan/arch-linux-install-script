@@ -86,6 +86,7 @@ sudo pacman -S --needed --noconfirm \
     ttf-jetbrains-mono-nerd \
     ttf-material-symbols-variable \
     ttf-noto-nerd \
+    ttf-roboto \
     ttf-ubuntu-font-family \
     waybar \
     wget \
