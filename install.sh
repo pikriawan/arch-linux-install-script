@@ -78,10 +78,15 @@ sudo pacman -S --needed --noconfirm \
     tmux \
     tree \
     tree-sitter-cli \
+    ttf-cascadia-code \
+    ttf-cascadia-code-nerd \
+    ttf-dejavu \
+    ttf-dejavu-nerd \
     ttf-jetbrains-mono \
     ttf-jetbrains-mono-nerd \
     ttf-material-symbols-variable \
     ttf-noto-nerd \
+    ttf-ubuntu-font-family \
     waybar \
     wget \
     wiremix \
@@ -187,6 +192,18 @@ for i in .config/*; do
     cp -r $i "$HOME/$i"
 done
 
+# Copy opt files
+if [[ ! -f opt.tar.gz ]]; then
+    curl -L -o opt.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/opt.tar.gz
+fi
+
+if [[ ! -d opt ]]; then
+    tar -xvzf opt.tar.gz
+fi
+
+rm -rf "$HOME/.local/opt"
+cp -r opt "$HOME/.local/opt"
+
 # Copy bin files
 if [[ ! -f bin.tar.gz ]]; then
     curl -L -o bin.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/bin.tar.gz
@@ -198,6 +215,10 @@ fi
 
 rm -rf "$HOME/.local/bin"
 cp -r bin "$HOME/.local/bin"
+ln -sf "$HOME/.local/opt/theme-manager/theme-manager" "$HOME/.local/bin/theme-manager"
+
+# Initialize theme
+bash -c "$HOME/.local/bin/theme-manager init"
 
 # Configure speech-dispatcher
 spd-conf -ucn
