@@ -82,6 +82,9 @@ sudo pacman -S --needed --noconfirm \
     ttf-cascadia-code-nerd \
     ttf-dejavu \
     ttf-dejavu-nerd \
+    ttf-fira-code \
+    ttf-fira-sans \
+    ttf-firacode-nerd \
     ttf-jetbrains-mono \
     ttf-jetbrains-mono-nerd \
     ttf-material-symbols-variable \
