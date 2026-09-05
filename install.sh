@@ -91,6 +91,7 @@ sudo pacman -S --needed --noconfirm \
     ttf-noto-nerd \
     ttf-roboto \
     ttf-ubuntu-font-family \
+    ttf-ubuntu-nerd \
     waybar \
     wget \
     wiremix \
