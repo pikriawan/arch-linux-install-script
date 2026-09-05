@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+version="1.0"
+
 # Update and install packages
 sudo pacman -Syu --noconfirm
 
@@ -134,7 +136,7 @@ cd "$HOME/.tmp"
 
 if ! pacman -Qi yaru-theme &>/dev/null; then
     if [[ ! -f yaru-theme.tar.gz ]]; then
-        curl -L -o yaru-theme.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/yaru-theme.tar.gz
+        curl -fL "https://github.com/pikriawan/arch-linux-install-script/releases/download/v${version}/yaru-theme.tar.gz" -o yaru-theme.tar.gz
     fi
 
     if [[ ! -d yaru-theme ]]; then
@@ -148,7 +150,7 @@ fi
 
 if ! pacman -Qi bibata-modern-classic-cursor-theme &>/dev/null; then
     if [[ ! -f bibata-modern-classic-cursor-theme.tar.gz ]]; then
-        curl -L -o bibata-modern-classic-cursor-theme.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/bibata-modern-classic-cursor-theme.tar.gz
+        curl -fL "https://github.com/pikriawan/arch-linux-install-script/releases/download/v${version}/bibata-modern-classic-cursor-theme.tar.gz" -o bibata-modern-classic-cursor-theme.tar.gz
     fi
 
     if [[ ! -d bibata-modern-classic-cursor-theme ]]; then
@@ -182,11 +184,11 @@ if [[ ! -d "$HOME/.zsh" ]]; then
 fi
 
 sudo chsh -s /usr/bin/zsh "$USER"
-curl -L -o "$HOME/.zshrc" https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/.zshrc
+curl -fL "https://github.com/pikriawan/arch-linux-install-script/releases/download/v${version}/default.zshrc" -o "$HOME/.zshrc"
 
 # Copy config files
 if [[ ! -f .config.tar.gz ]]; then
-    curl -L -o .config.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/.config.tar.gz
+    curl -fL "https://github.com/pikriawan/arch-linux-install-script/releases/download/v${version}/default.config.tar.gz" -o .config.tar.gz
 fi
 
 if [[ ! -d .config ]]; then
@@ -200,7 +202,7 @@ done
 
 # Copy opt files
 if [[ ! -f opt.tar.gz ]]; then
-    curl -L -o opt.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/opt.tar.gz
+    curl -fL "https://github.com/pikriawan/arch-linux-install-script/releases/download/v${version}/opt.tar.gz" -o opt.tar.gz
 fi
 
 if [[ ! -d opt ]]; then
@@ -212,7 +214,7 @@ cp -r opt "$HOME/.local/opt"
 
 # Copy bin files
 if [[ ! -f bin.tar.gz ]]; then
-    curl -L -o bin.tar.gz https://github.com/pikriawan/arch-linux-install-script/raw/refs/heads/main/bin.tar.gz
+    curl -fL "https://github.com/pikriawan/arch-linux-install-script/releases/download/v${version}/bin.tar.gz" -o bin.tar.gz
 fi
 
 if [[ ! -d bin ]]; then
